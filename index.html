@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="楊庭平 - 數位履歷 | Embedded Systems Engineer & Automation Control Engineer">
+    <title>楊庭平 | 數位履歷</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tl-grid {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tl-grid.cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .tl-img-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2a2a2a;
+            border: 1px dashed #555;
+            border-radius: 8px;
+            color: #888;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .tl-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s;
+        }
+
+        .tl-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PASSWORD GATE -->
+    <div id="password-gate">
+        <div class="gate-bg">
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+        </div>
+        <div class="gate-container">
+            <div class="gate-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h1 class="gate-title">安全驗證</h1>
+            <p class="gate-subtitle" data-i18n="gate_desc">為保護個人隱私，請輸入 QR Code 中提供的密碼。</p>
+            <div class="gate-input-wrapper">
+                <input type="password" id="password-input" placeholder="請輸入密碼..." maxlength="10" autocomplete="off">
+                <button id="password-submit" onclick="checkPassword()">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <p id="password-error" class="gate-error"></p>
+            <div class="gate-hint">
+                <i class="fas fa-lock"></i> <span>受保護的內容</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CV -->
+    <div id="cv-content" class="hidden">
+        <!-- Back to top -->
+        <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <!-- HERO SECTION -->
+        <header id="hero">
+            <div class="hero-bg-effects">
+                <div class="hero-orb orb-1"></div>
+                <div class="hero-orb orb-2"></div>
+                <div class="hero-orb orb-3"></div>
+            </div>
+            <nav id="navbar">
+                <div class="nav-logo">YTP</div>
+                <div class="nav-links">
+                    <a href="#about" data-i18n="nav_about">關於我</a>
+                    <a href="#skills" data-i18n="nav_skills">技術能力</a>
+                    <a href="#projects" data-i18n="nav_projects">專案經歷</a>
+                    <a href="#education" data-i18n="nav_education">學歷</a>
+                    <a href="#contact" data-i18n="nav_contact">聯繫方式</a>
+                </div>
+                <div id="lang-switcher">
+                    <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">繁中</button>
+                    <button class="lang-btn" data-lang="vi" onclick="switchLang('vi')">Tiếng Việt</button>
+                    <button class="lang-btn" data-lang="en" onclick="switchLang('en')">English</button>
+                </div>
+                <button class="nav-menu-btn" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge" data-i18n="hero_badge">嵌入式系統 & 自動化控制</div>
+                    <h1 class="hero-name">
+                        <span class="hero-name-zh">楊庭平</span>
+                        <span class="hero-name-en">DUONG DINH BINH</span>
+                    </h1>
+                    <p class="hero-title" data-i18n="hero_title">電機工程學士 | 嵌入式系統工程師</p>
+                    <p class="hero-desc" data-i18n="hero_desc">致力於推動工業物聯網(IIoT)、韌體開發與自動化系統設計。擅長運用AI工具優化技術邏輯的高度自學型工程師。
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn-primary" data-i18n="hero_contact_btn">聯繫我</a>
+                        <a href="#projects" class="btn-secondary" data-i18n="hero_projects_btn">查看專案</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">4+</span>
+                            <span class="stat-label" data-i18n="stat_years">年學習經驗</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label" data-i18n="stat_projects">核心專案</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label" data-i18n="stat_langs">程式語言</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-photo">
+                    <div class="photo-frame">
+                        <img src="assets/profile.png" alt="楊庭平 Profile Photo" id="profile-img">
+                        <div class="photo-ring"></div>
+                    </div>
+                    <div class="photo-status">
+                        <span class="status-dot"></span>
+                        <span data-i18n="status_available">開放求職中</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="about_title">關於我</h2>
+                <div class="about-grid">
+                    <div class="about-card about-info">
+                        <h3 data-i18n="about_personal">個人資訊</h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-calendar-alt"></i><span data-i18n="about_dob">出生日期：2000年4月19日</span>
+                            </li>
+                            <li><i class="fas fa-map-marker-alt"></i><span data-i18n="about_address">地址：台中市太平區中山路</span>
+                            </li>
+                            <li><i class="fas fa-id-card"></i><span data-i18n="about_arc">居留證狀態：居留證（至 2026/11/04）|
+                                    Visa效期至 2032 年</span></li>
+                            <li><i class="fas fa-graduation-cap"></i><span data-i18n="about_grad">預計畢業：2026年6月30日</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="about-card about-objective">
+                        <h3 data-i18n="about_objective_title">職涯目標</h3>
+                        <p data-i18n="about_objective">
+                            尋求嵌入式系統工程師或自動化控制工程師職位。憑藉深厚的電機工程背景與扎實的程式設計能力，致力於推動工業物聯網（IIoT）、韌體開發及自動化系統設計。我是一位高度自學型工程師，擅長運用AI工具優化技術邏輯，期望為智慧製造環境做出貢獻。
+                        </p>
+                    </div>
+                    <div class="about-card about-autobiography">
+                        <h3 data-i18n="auto_title">自傳</h3>
+                        <div class="auto-section">
+                            <h4 data-i18n="auto_h1">學術背景：以成長思維迎接挑戰</h4>
+                            <p data-i18n="auto_p1">
+                                我是楊庭平，國立勤益科技大學電機工程系應屆畢業生。我是一位注重實踐的學習者，秉持「學習心態」。在鴻海實習的經歷是我人生的轉折點，讓我深刻體認到技術深度決定工程師的價值。因此，我重返學業，專攻人機介面、MATLAB程式設計及數位影像處理，將理論與實務經驗融合，奠定嚴謹的工程基礎。
+                            </p>
+                        </div>
+                        <div class="auto-section">
+                            <h4 data-i18n="auto_h2">技術熱忱：從伺服器開發到AI輔助工程</h4>
+                            <p data-i18n="auto_p2">
+                                我對開發充滿熱忱。獨立管理Minecraft基岩版伺服器的經驗中，我使用JavaScript解決複雜的系統錯誤與API整合問題。自2023年起，我已將AI工具完全融入工作流程，顯著提升Python應用開發效率。至2026年初，我已具備運用AI輔助獨立建構小型工程模型的能力。我深信善用AI加速研發是現代工程師的核心競爭力。
+                            </p>
+                        </div>
+                        <div class="auto-section">
+                            <h4 data-i18n="auto_h3">未來展望：嚴謹、謙虛、準備就緒</h4>
+                            <p data-i18n="auto_p3">
+                                作為在台灣開啟職涯的應屆畢業生，我以謙虛嚴謹的態度迎接挑戰。雖然目前中文程度為A2級別，但我已做好全面沉浸式學習的準備，在全中文工作環境中快速提升語言能力。期待能將我在ESP32開發、PLC控制及AI應用方面的專長貢獻給貴公司的研發團隊，成為一名可靠且高潛力的工程師。
+                            </p>
+                        </div>
+                        <div class="auto-section">
+                            <h4 data-i18n="auto_h4">職涯期許：實務磨練與專業成長</h4>
+                            <p data-i18n="auto_p4">
+                                我深知學校教育奠定了堅實的理論與基礎技能，但要成長為一名專業的工程師，我仍需每日在實務環境中磨練，並向具備資深經驗的領路人學習。能進入貴公司學習與工作，對我而言是職涯發展的重要跨越，這不僅能讓我將理論轉化為專業實踐，更能在實戰中累積寶貴經驗，豐富我的專業資歷。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title" data-i18n="skills_title">技術能力</h2>
+                <div class="skills-grid">
+                    <div class="skill-card" data-aos="fade-up">
+                        <div class="skill-icon"><i class="fas fa-code"></i></div>
+                        <h3 data-i18n="skill_prog">程式設計</h3>
+                        <div class="skill-tags">
+                            <span class="tag">C/C++</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">MATLAB</span>
+                        </div>
+                        <p data-i18n="skill_prog_desc">微控制器C/C++、Python自動化腳本/EXE應用、JavaScript伺服器開發/API整合</p>
+                    </div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+                        <h3 data-i18n="skill_hw">硬體與嵌入式系統</h3>
+                        <div class="skill-tags">
+                            <span class="tag">ESP32</span>
+                            <span class="tag">Arduino</span>
+                            <span class="tag">PCB Layout</span>
+                        </div>
+                        <p data-i18n="skill_hw_desc">ESP32與Arduino實作、PCB電路板設計、數位影像處理、工業配電設計</p>
+                    </div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                        <h3 data-i18n="skill_auto">自動化與控制</h3>
+                        <div class="skill-tags">
+                            <span class="tag">PLC</span>
+                            <span class="tag">LabVIEW</span>
+                            <span class="tag">HMI</span>
+                        </div>
+                        <p data-i18n="skill_auto_desc">PLC程式設計（三菱、西門子）、LabVIEW、人機介面（HMI）設計</p>
+                    </div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="skill-icon"><i class="fas fa-cube"></i></div>
+                        <h3 data-i18n="skill_mech">機械設計</h3>
+                        <div class="skill-tags">
+                            <span class="tag">SolidWorks</span>
+                            <span class="tag">3D建模</span>
+                        </div>
+                        <p data-i18n="skill_mech_desc">SolidWorks 3D建模設計</p>
+                    </div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                        <h3 data-i18n="skill_ai">AI輔助工程</h3>
+                        <div class="skill-tags">
+                            <span class="tag">ChatGPT</span>
+                            <span class="tag">Claude</span>
+                            <span class="tag">AI模型</span>
+                        </div>
+                        <p data-i18n="skill_ai_desc">精通運用AI（ChatGPT/Claude）輔助程式開發、邏輯優化及解決複雜工程問題（2023年至今）。能獨立開發小型AI輔助模型。
+                        </p>
+                    </div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="skill-icon"><i class="fas fa-file-alt"></i></div>
+                        <h3 data-i18n="skill_office">辦公軟體</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Word</span>
+                            <span class="tag">Excel</span>
+                            <span class="tag">PowerPoint</span>
+                        </div>
+                        <p data-i18n="skill_office_desc">熟練掌握Office辦公軟體套件</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="projects_title">專案與經歷</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_intern_badge">實習經歷</div>
+                            <h3 data-i18n="proj_foxconn">Ingrasys Taoyuan 鴻佰科技股份有限公司-南青廠 | 實習生</h3>
+                            <h4 data-i18n="proj_foxconn_role">生產線實習 — 南青廠</h4>
+                            <p data-i18n="proj_foxconn_desc">深入了解大型企業運營模式與現場工程環境。</p>
+                            <div class="timeline-highlight">
+                                <i class="fas fa-star"></i>
+                                <span data-i18n="proj_foxconn_key">關鍵成就：深刻認識到專業理論的重要性，主動重返大學強化核心電機技術與程式邏輯。</span>
+                            </div>
+                            <a href="project-foxconn.html" class="btn-secondary"
+                                style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;"
+                                data-i18n="proj_foxconn_details">查看專案詳情</a>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-gamepad"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_personal_badge">個人專案</div>
+                            <h3 data-i18n="proj_mc">Minecraft基岩版伺服器開發</h3>
+                            <h4 data-i18n="proj_mc_role">伺服器開發者與維護者</h4>
+                            <ul>
+                                <li data-i18n="proj_mc_1">使用JavaScript撰寫自訂腳本並處理API呼叫</li>
+                                <li data-i18n="proj_mc_2">獲得系統維護與開源程式碼管理的實務經驗</li>
+                            </ul>
+                            <a href="project-mc.html" class="btn-secondary"
+                                style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;"
+                                data-i18n="proj_mc_details">查看專案詳情</a>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-microphone-alt"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_app_badge">應用程式開發</div>
+                            <h3 data-i18n="proj_ai_voice">AI語音旁白應用程式</h3>
+                            <h4 data-i18n="proj_ai_voice_role">獨立開發者</h4>
+                            <ul>
+                                <li data-i18n="proj_ai_voice_1">開發AI語音合成應用，生成專業級旁白與解說音頻</li>
+                                <li data-i18n="proj_ai_voice_2">整合AI模型實現自然語音生成，應用於多媒體內容製作</li>
+                            </ul>
+                            <a href="project-aivoice.html" class="btn-secondary"
+                                style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;"
+                                data-i18n="proj_ai_voice_details">查看專案詳情</a>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-video"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_app_badge">應用程式開發</div>
+                            <h3 data-i18n="proj_live_mgmt">直播人員管理系統</h3>
+                            <h4 data-i18n="proj_live_mgmt_role">獨立開發者</h4>
+                            <ul>
+                                <li data-i18n="proj_live_mgmt_1">開發直播員工排班與績效管理應用程式</li>
+                                <li data-i18n="proj_live_mgmt_2">實現即時監控直播狀態、數據統計與人員調度功能</li>
+                            </ul>
+                            <a href="project-livemgmt.html" class="btn-secondary"
+                                style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;"
+                                data-i18n="proj_live_mgmt_details">查看專案詳情</a>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-headset"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_app_badge">應用程式開發</div>
+                            <h3 data-i18n="proj_google_tts">Google語音整合直播系統</h3>
+                            <h4 data-i18n="proj_google_tts_role">獨立開發者</h4>
+                            <ul>
+                                <li data-i18n="proj_google_tts_1">將Google語音合成（TTS）技術整合至直播場景</li>
+                                <li data-i18n="proj_google_tts_2">實現即時文字轉語音播報，提升直播互動體驗與效率</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="fas fa-flask"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-badge" data-i18n="proj_academic_badge">核心學術專案</div>
+                            <h3 data-i18n="proj_academic">學術研究專案</h3>
+                            <ul>
+                                <li><strong data-i18n="proj_net">網路語言I/O應用：</strong><span
+                                        data-i18n="proj_net_desc">實作硬體控制與網路通訊的整合</span></li>
+                                <li><strong data-i18n="proj_matlab">MATLAB影像處理：</strong><span
+                                        data-i18n="proj_matlab_desc">將數據演算法應用於數位影像處理任務</span></li>
+                                <li>
+                                    <strong data-i18n="proj_power">工業配電：</strong><span
+                                        data-i18n="proj_power_desc">掌握工業級電路佈局規範與安全標準</span>
+                                </li>
+                                <li>
+                                    <strong data-i18n="proj_power_elec">電力電子：</strong><span
+                                        data-i18n="proj_power_elec_desc">電力電子相關技術與電路設計學習</span>
+                                </li>
+                                <li>
+                                    <strong data-i18n="proj_esp32">ESP32開發：</strong><span
+                                        data-i18n="proj_esp32_desc">物聯網與微控制器應用實作</span>
+                                </li>
+                            </ul>
+
+                            <h3 data-i18n="proj_self_explore" style="margin-top: 15px;">自學與探索</h3>
+                            <ul>
+                                <li>
+                                    <strong data-i18n="proj_laptop">筆電升級：</strong><span
+                                        data-i18n="proj_laptop_desc">自行拆解與升級筆記型電腦硬體</span>
+                                </li>
+                                <li>
+                                    <strong data-i18n="proj_wifi">WiFi修復：</strong><span
+                                        data-i18n="proj_wifi_desc">使用Arduino觸發訊號並修復被Brick的WiFi模組</span>
+                                </li>
+                            </ul>
+                            <a href="project-academic.html" class="btn-secondary"
+                                style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;"
+                                data-i18n="proj_academic_details">查看專案詳情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION & CERTS SECTION -->
+        <section id="education" class="section section-alt">
+            <div class="container">
+                <h2 class="section-title" data-i18n="edu_title">學歷與證照</h2>
+                <div class="edu-grid">
+                    <div class="edu-card">
+                        <div class="edu-icon"><i class="fas fa-university"></i></div>
+                        <h3 data-i18n="edu_school">國立勤益科技大學（NCUT）</h3>
+                        <p class="edu-degree" data-i18n="edu_degree">電機工程學士（產學合作班）</p>
+                        <p class="edu-period" data-i18n="edu_period">2022 – 2026（預計）</p>
+                        <a href="project-transcript.html" class="btn-secondary" style="margin-top: 15px; display: inline-block; padding: 8px 16px; font-size: 0.9rem;" data-i18n="edu_transcript_btn">查看成績單 / Bảng điểm</a>
+                    </div>
+                    <div class="edu-card">
+                        <div class="edu-icon"><i class="fas fa-language"></i></div>
+                        <h3 data-i18n="lang_title">語言能力</h3>
+                        <div class="lang-item">
+                            <span data-i18n="lang_zh">華語文能力測驗 TOCFL A2（2024年取得）</span>
+                            <div class="lang-bar">
+                                <div class="lang-progress" style="width:45%"></div>
+                            </div>
+                        </div>
+                        <p class="lang-note" data-i18n="lang_zh_note">目前密集進修中，目標於六個月內達到職場專業溝通水平。</p>
+                    </div>
+                    <div class="edu-card">
+                        <div class="edu-icon"><i class="fas fa-certificate"></i></div>
+                        <h3 data-i18n="cert_title">專業證照</h3>
+                        <p data-i18n="cert_ee">電機工程專業課程合格證書</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title" data-i18n="contact_title">聯繫方式</h2>
+                <div class="contact-grid">
+                    <a href="tel:0966082017" class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <h3 data-i18n="contact_phone">電話</h3>
+                        <p>0966-082-017</p>
+                    </a>
+                    <a href="mailto:qwea4102@gmail.com" class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <h3 data-i18n="contact_email">電子郵件</h3>
+                        <p>qwea4102@gmail.com</p>
+                    </a>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3 data-i18n="contact_addr">地址</h3>
+                        <p data-i18n="contact_addr_val">台中市太平區中山路</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <p>© 2026 楊庭平 | <span data-i18n="footer_text">數位履歷 — 以熱忱與技術打造未來</span></p>
+        </footer>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

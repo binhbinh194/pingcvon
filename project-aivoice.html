@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Narration App | YTP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-header {
+            padding: 120px 20px 50px;
+            text-align: center;
+        }
+
+        .project-detail-section {
+            padding: 40px 20px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            background: #2a2a2a;
+            border: 2px dashed #4a4a4a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .project-image-placeholder img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PASSWORD GATE -->
+    <div id="password-gate">
+        <div class="gate-bg">
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+        </div>
+        <div class="gate-container">
+            <div class="gate-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <h1 class="gate-title">安全驗證</h1>
+            <p class="gate-subtitle" data-i18n="gate_desc">為保護個人隱私，請輸入 QR Code 中提供的密碼。</p>
+            <div class="gate-input-wrapper">
+                <input type="password" id="password-input" placeholder="請輸入密碼..." maxlength="10" autocomplete="off">
+                <button id="password-submit" onclick="checkPassword()">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <p id="password-error" class="gate-error"></p>
+            <div class="gate-hint">
+                <i class="fas fa-lock"></i> <span>受保護的內容</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CV -->
+    <div id="cv-content" class="hidden">
+        <!-- Back to top -->
+        <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <nav id="navbar">
+            <div class="nav-logo">YTP</div>
+            <div class="nav-links">
+                <a href="index.html#projects" data-i18n="mc_back_btn"><i class="fas fa-arrow-left"></i> 返回履歷</a>
+            </div>
+            <div id="lang-switcher">
+                <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">繁中</button>
+                <button class="lang-btn" data-lang="vi" onclick="switchLang('vi')">Tiếng Việt</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLang('en')">English</button>
+            </div>
+            <button class="nav-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <header class="project-header">
+            <div class="hero-badge" style="display: inline-block; margin-bottom: 20px;"><i
+                    class="fas fa-microphone-alt"></i> <span data-i18n="proj_app_badge">App Development</span></div>
+            <h1 class="hero-name" data-i18n="ai_page_title" style="font-size: 2.5rem; margin-bottom: 10px;">AI語音旁白應用程式
+            </h1>
+            <p class="hero-title" data-i18n="ai_page_desc" style="color: var(--text-secondary);">應用程式介面與功能展示</p>
+        </header>
+
+        <section class="section project-detail-section">
+            <div class="container">
+                <!-- Image 1: Interface -->
+                <div class="project-card">
+                    <h3 data-i18n="ai_img1_title" style="margin-bottom: 15px; color: var(--primary-color);">1. 應用程式介面
+                        (Interface)</h3>
+                    <div class="project-image-placeholder">
+                        <img src="assets/ai-interface.jpg" alt="App Interface"
+                            onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-desktop\'></i> &nbsp; [Vui lòng thêm ảnh ai-interface.jpg vào thư mục]'">
+                    </div>
+                </div>
+
+                <!-- Image 2: Language Pack -->
+                <div class="project-card">
+                    <h3 data-i18n="ai_img2_title" style="margin-bottom: 15px; color: var(--primary-color);">2. 語言套件
+                        (Language Pack)</h3>
+                    <div class="project-image-placeholder">
+                        <img src="assets/ai-langpack.jpg" alt="Language Pack"
+                            onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-language\'></i> &nbsp; [Vui lòng thêm ảnh ai-langpack.jpg vào thư mục]'">
+                    </div>
+                </div>
+
+                <!-- App Download Link -->
+                <div class="project-card">
+                    <h3 data-i18n="ai_link_title" style="margin-bottom: 15px; color: var(--primary-color);">3. 下載應用程式
+                    </h3>
+                    <p data-i18n="ai_link_desc">在此下載並安裝應用程式(pass 112233)：</p>
+                    <a href="https://www.mediafire.com/file/vlq4emuvhqsj5je/TTS.zip/file" target="_blank"
+                        rel="noopener noreferrer" class="btn-primary" style="margin-top: 15px; display: inline-block;">
+                        <i class="fas fa-download"></i> <span data-i18n="ai_link_btn">立即下載</span>
+                    </a>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="index.html#projects" class="btn-secondary" data-i18n="mc_back_btn"><i
+                            class="fas fa-arrow-left"></i> 返回履歷</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <p>© 2026 楊庭平 | <span data-i18n="footer_text">數位履歷 — 以熱忱與技術打造未來</span></p>
+        </footer>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
